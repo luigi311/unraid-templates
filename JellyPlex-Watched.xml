@@ -31,7 +31,7 @@
   <Config Name="BLACKLIST_LIBRARY" Target="BLACKLIST_LIBRARY" Default="" Mode="" Description="" Type="Variable" Display="always" Required="false" Mask="false"/>
   <Config Name="WHITELIST_LIBRARY" Target="WHITELIST_LIBRARY" Default="" Mode="" Description="" Type="Variable" Display="always" Required="false" Mask="false"/>
   <Config Name="BLACKLIST_LIBRARY_TYPE" Target="BLACKLIST_LIBRARY_TYPE" Default="" Mode="" Description="" Type="Variable" Display="always" Required="false" Mask="false"/>
-  <Config Name="BLACKLIST_LIBRARY_TYPE" Target="BLACKLIST_LIBRARY_TYPE" Default="" Mode="" Description="" Type="Variable" Display="always" Required="false" Mask="false"/>
+  <Config Name="WHITELIST_LIBRARY_TYPE" Target="WHITELIST_LIBRARY_TYPE" Default="" Mode="" Description="" Type="Variable" Display="always" Required="false" Mask="false"/>
   <Config Name="BLACKLIST_USERS" Target="BLACKLIST_USERS" Default="" Mode="" Description="" Type="Variable" Display="always" Required="false" Mask="false"/>
   <Config Name="WHITELIST_USERS" Target="WHITELIST_USERS" Default="" Mode="" Description="" Type="Variable" Display="always" Required="false" Mask="false"/>
   <Config Name="SYNC_FROM_PLEX_TO_JELLYFIN " Target="SYNC_FROM_PLEX_TO_JELLYFIN " Default="True" Mode="" Description="" Type="Variable" Display="always" Required="false" Mask="false"/>
