@@ -9,7 +9,7 @@
   <Privileged>false</Privileged>
   <Support>https://github.com/luigi311/JellyPlex-Watched/issues</Support>
   <Project>https://github.com/luigi311/JellyPlex-Watched</Project>
-  <Overview>Sync watched between jellyfin and plex locally</Overview>
+  <Overview>Sync watched state between Plex, Jellyfin, and Emby</Overview>
   <Category>MediaApp:Other</Category>
   <WebUI/>
   <TemplateURL/>
@@ -17,33 +17,49 @@
   <ExtraParams/>
   <PostArgs/>
   <CPUset/>
-  <DateInstalled>1679002729</DateInstalled>
   <DonateText/>
   <DonateLink/>
   <Requires/>
-  <Config Name="DRYRUN" Target="DRYRUN" Default="True" Mode="" Description="" Type="Variable" Display="always" Required="false" Mask="false"/>
-  <Config Name="DEBUG" Target="DEBUG" Default="False" Mode="" Description="" Type="Variable" Display="always" Required="false" Mask="false"/>
-  <Config Name="DEBUG_LEVEL" Target="DEBUG_LEVEL" Default="INFO" Mode="" Description="" Type="Variable" Display="always" Required="false" Mask="false"/>
-  <Config Name="SLEEP_DURATION" Target="SLEEP_DURATION" Default="3600" Mode="" Description="" Type="Variable" Display="always" Required="false" Mask="false"/>
-  <Config Name="LOGFILE" Target="LOGFILE" Default="/tmp/log.log" Mode="" Description="" Type="Variable" Display="always" Required="false" Mask="false"/>
-  <Config Name="USER_MAPPING" Target="USER_MAPPING" Default="" Mode="" Description="" Type="Variable" Display="always" Required="false" Mask="false"/>
-  <Config Name="LIBRARY_MAPPING" Target="LIBRARY_MAPPING" Default="" Mode="" Description="" Type="Variable" Display="always" Required="false" Mask="false"/>
-  <Config Name="BLACKLIST_LIBRARY" Target="BLACKLIST_LIBRARY" Default="" Mode="" Description="" Type="Variable" Display="always" Required="false" Mask="false"/>
-  <Config Name="WHITELIST_LIBRARY" Target="WHITELIST_LIBRARY" Default="" Mode="" Description="" Type="Variable" Display="always" Required="false" Mask="false"/>
-  <Config Name="BLACKLIST_LIBRARY_TYPE" Target="BLACKLIST_LIBRARY_TYPE" Default="" Mode="" Description="" Type="Variable" Display="always" Required="false" Mask="false"/>
-  <Config Name="WHITELIST_LIBRARY_TYPE" Target="WHITELIST_LIBRARY_TYPE" Default="" Mode="" Description="" Type="Variable" Display="always" Required="false" Mask="false"/>
-  <Config Name="BLACKLIST_USERS" Target="BLACKLIST_USERS" Default="" Mode="" Description="" Type="Variable" Display="always" Required="false" Mask="false"/>
-  <Config Name="WHITELIST_USERS" Target="WHITELIST_USERS" Default="" Mode="" Description="" Type="Variable" Display="always" Required="false" Mask="false"/>
-  <Config Name="SYNC_FROM_PLEX_TO_JELLYFIN " Target="SYNC_FROM_PLEX_TO_JELLYFIN " Default="True" Mode="" Description="" Type="Variable" Display="always" Required="false" Mask="false"/>
-  <Config Name="SYNC_FROM_JELLYFIN_TO_PLEX " Target="SYNC_FROM_JELLYFIN_TO_PLEX " Default="True" Mode="" Description="" Type="Variable" Display="always" Required="false" Mask="false"/>
-  <Config Name="SYNC_FROM_PLEX_TO_PLEX " Target="SYNC_FROM_PLEX_TO_PLEX " Default="True" Mode="" Description="" Type="Variable" Display="always" Required="false" Mask="false"/>
-  <Config Name="SYNC_FROM_JELLYFIN_TO_JELLYFIN " Target="SYNC_FROM_JELLYFIN_TO_JELLYFIN " Default="True" Mode="" Description="" Type="Variable" Display="always" Required="false" Mask="false"/>
-  <Config Name="PLEX_BASEURL" Target="PLEX_BASEURL" Default="https://localhost:32400" Mode="" Description="" Type="Variable" Display="always" Required="false" Mask="false"/>
-  <Config Name="PLEX_TOKEN" Target="PLEX_TOKEN" Default="" Mode="" Description="" Type="Variable" Display="always" Required="false" Mask="true"/>
-  <Config Name="PLEX_USERNAME" Target="PLEX_USERNAME" Default="" Mode="" Description="" Type="Variable" Display="always" Required="false" Mask="false"/>
-  <Config Name="PLEX_PASSWORD" Target="PLEX_PASSWORD" Default="" Mode="" Description="" Type="Variable" Display="always" Required="false" Mask="false"/>
-  <Config Name="PLEX_SERVERNAME" Target="PLEX_SERVERNAME" Default="" Mode="" Description="" Type="Variable" Display="always" Required="false" Mask="false"/>
-  <Config Name="SSL_BYPASS" Target="SSL_BYPASS" Default="True" Mode="" Description="" Type="Variable" Display="always" Required="false" Mask="false"/>
-  <Config Name="JELLYFIN_BASEURL" Target="JELLYFIN_BASEURL" Default="http://localhost:8096" Mode="" Description="" Type="Variable" Display="always" Required="false" Mask="false"/>
-  <Config Name="JELLYFIN_TOKEN" Target="JELLYFIN_TOKEN" Default="" Mode="" Description="" Type="Variable" Display="always" Required="false" Mask="true"/>
+  <Config Name="DRYRUN" Target="DRYRUN" Default="True" Mode="" Description="Do not mark any shows/movies as played and instead just output to log if they would of been marked. Change this to False after confirming that everything works as expected." Type="Variable" Display="always" Required="true" Mask="false"/>
+  <Config Name="DEBUG" Target="DEBUG" Default="False" Mode="" Description="Print additional logging information" Type="Variable" Display="advanced" Required="false" Mask="false"/>
+  <Config Name="DEBUG_LEVEL" Target="DEBUG_LEVEL" Default="INFO" Mode="" Description="Debugging level, 'info' is default, 'debug' is more verbose" Type="Variable" Display="advanced" Required="false" Mask="false"/>
+  <Config Name="RUN_ONLY_ONCE" Target="RUN_ONLY_ONCE" Default="False" Mode="" Description="If set to True then the script will only run once and then exit" Type="Variable" Display="always" Required="false" Mask="false"/>
+  <Config Name="SLEEP_DURATION" Target="SLEEP_DURATION" Default="3600" Mode="" Description="How often to run the script in seconds" Type="Variable" Display="always" Required="false" Mask="false"/>
+  <Config Name="LOGFILE" Target="LOGFILE" Default="/tmp/log.log" Mode="" Description="Log file where all output will be written to" Type="Variable" Display="advanced" Required="false" Mask="false"/>
+  <Config Name="MARK_FILE" Target="MARK_FILE" Default="" Mode="" Description="Mark file where all shows/movies that have been marked as played will be written to" Type="Variable" Display="advanced" Required="false" Mask="false"/>
+  <Config Name="REQUEST_TIMEOUT" Target="REQUEST_TIMEOUT" Default="300" Mode="" Description="Timeout for requests for Jellyfin and Emby in seconds" Type="Variable" Display="advanced" Required="false" Mask="false"/>
+  <Config Name="GENERATE_GUIDS" Target="GENERATE_GUIDS" Default="True" Mode="" Description="Generating guids is a slow process, so setting this to False is a way to speed up the process by using the location only, useful when using same files on multiple servers" Type="Variable" Display="always" Required="false" Mask="false"/>
+  <Config Name="GENERATE_LOCATIONS" Target="GENERATE_LOCATIONS" Default="True" Mode="" Description="Generating locations is a slow process, so setting this to False is a way to speed up the process by using the guid only, useful when using different files on multiple servers" Type="Variable" Display="always" Required="false" Mask="false"/>
+  <Config Name="MAX_THREADS" Target="MAX_THREADS" Default="32" Mode="" Description="Max threads for processing" Type="Variable" Display="advanced" Required="false" Mask="false"/>
+  <Config Name="USER_MAPPING" Target="USER_MAPPING" Default="" Mode="" Description="Map usernames between servers in the event that they are different. Syntax: JSON map." Type="Variable" Display="advanced" Required="false" Mask="false"/>
+  <Config Name="LIBRARY_MAPPING" Target="LIBRARY_MAPPING" Default="" Mode="" Description="Map libraries between servers in the event that they are different. Syntax: JSON map." Type="Variable" Display="advanced" Required="false" Mask="false"/>
+  <Config Name="BLACKLIST_LIBRARY" Target="BLACKLIST_LIBRARY" Default="" Mode="" Description="Blacklist libraries that should be excluded from processing. Lists are applied individually, in an OR relationship. Syntax: comma separated values for multiple options" Type="Variable" Display="advanced" Required="false" Mask="false"/>
+  <Config Name="WHITELIST_LIBRARY" Target="WHITELIST_LIBRARY" Default="" Mode="" Description="Whitelist libraries, everything not listed will be excluded from processing. Lists are applied individually, in an OR relationship. Syntax: comma separated values for multiple options" Type="Variable" Display="advanced" Required="false" Mask="false"/>
+  <Config Name="BLACKLIST_LIBRARY_TYPE" Target="BLACKLIST_LIBRARY_TYPE" Default="" Mode="" Description="Blacklist library types such as Movies/TV Shows that should be excluded from processing. Lists are applied individually, in an OR relationship. Syntax: comma separated values for multiple options" Type="Variable" Display="advanced" Required="false" Mask="false"/>
+  <Config Name="WHITELIST_LIBRARY_TYPE" Target="WHITELIST_LIBRARY_TYPE" Default="" Mode="" Description="Whitelist library types such as Movies/TV Shows, everything not listed will be excluded from processing. Lists are applied individually, in an OR relationship. Syntax: comma separated values for multiple options" Type="Variable" Display="advanced" Required="false" Mask="false"/>
+  <Config Name="BLACKLIST_USERS" Target="BLACKLIST_USERS" Default="" Mode="" Description="Blacklist users that should be excluded from processing. Lists are applied individually, in an OR relationship. Syntax: comma separated values for multiple options" Type="Variable" Display="advanced" Required="false" Mask="false"/>
+  <Config Name="WHITELIST_USERS" Target="WHITELIST_USERS" Default="" Mode="" Description="Whitelist users, each user not listed will be excluded from processing. Lists are applied individually, in an OR relationship. Syntax: comma separated values for multiple options" Type="Variable" Display="advanced" Required="false" Mask="false"/>
+
+  <Config Name="SYNC_FROM_PLEX_TO_PLEX" Target="SYNC_FROM_PLEX_TO_PLEX" Default="True" Mode="" Description="" Type="Variable" Display="advanced" Required="false" Mask="false"/>
+  <Config Name="SYNC_FROM_PLEX_TO_JELLYFIN" Target="SYNC_FROM_PLEX_TO_JELLYFIN" Default="True" Mode="" Description="" Type="Variable" Display="always" Required="false" Mask="false"/>
+  <Config Name="SYNC_FROM_PLEX_TO_EMBY" Target="SYNC_FROM_PLEX_TO_EMBY" Default="True" Mode="" Description="" Type="Variable" Display="always" Required="false" Mask="false"/>
+
+  <Config Name="SYNC_FROM_JELLYFIN_TO_PLEX" Target="SYNC_FROM_JELLYFIN_TO_PLEX" Default="True" Mode="" Description="" Type="Variable" Display="always" Required="false" Mask="false"/>
+  <Config Name="SYNC_FROM_JELLYFIN_TO_JELLYFIN" Target="SYNC_FROM_JELLYFIN_TO_JELLYFIN" Default="True" Mode="" Description="" Type="Variable" Display="advanced" Required="false" Mask="false"/>
+  <Config Name="SYNC_FROM_JELLYFIN_TO_EMBY" Target="SYNC_FROM_JELLYFIN_TO_EMBY" Default="True" Mode="" Description="" Type="Variable" Display="always" Required="false" Mask="false"/>
+
+  <Config Name="SYNC_FROM_EMBY_TO_PLEX" Target="SYNC_FROM_EMBY_TO_PLEX" Default="True" Mode="" Description="" Type="Variable" Display="always" Required="false" Mask="false"/>
+  <Config Name="SYNC_FROM_EMBY_TO_JELLYFIN" Target="SYNC_FROM_EMBY_TO_JELLYFIN" Default="True" Mode="" Description="" Type="Variable" Display="always" Required="false" Mask="false"/>
+  <Config Name="SYNC_FROM_EMBY_TO_EMBY" Target="SYNC_FROM_EMBY_TO_EMBY" Default="True" Mode="" Description="" Type="Variable" Display="advanced" Required="false" Mask="false"/>
+
+  <Config Name="PLEX_BASEURL" Target="PLEX_BASEURL" Default="https://localhost:32400" Mode="" Description="URL of the plex server, use hostname or IP address if the hostname is not resolving correctly. Syntax: comma separated values for multiple servers" Type="Variable" Display="always" Required="false" Mask="false"/>
+  <Config Name="PLEX_TOKEN" Target="PLEX_TOKEN" Default="" Mode="" Description="Recommended over username/password. Token is faster to connect as it is direct to the server instead of going through the plex servers. See: https://support.plex.tv/articles/204059436-finding-an-authentication-token-x-plex-token/ Syntax: comma separated values for multiple servers" Type="Variable" Display="always" Required="false" Mask="true"/>
+  <Config Name="PLEX_SERVERNAME" Target="PLEX_SERVERNAME" Default="" Mode="" Description="Recommend using PLEX_TOKEN instead. If not using plex token then use username and password of the server admin along with the servername. Syntax: comma separated values for multiple servers" Type="Variable" Display="advanced" Required="false" Mask="false"/>
+  <Config Name="PLEX_USERNAME" Target="PLEX_USERNAME" Default="" Mode="" Description="Recommend using PLEX_TOKEN instead. Syntax: comma separated values for multiple servers" Type="Variable" Display="advanced" Required="false" Mask="false"/>
+  <Config Name="PLEX_PASSWORD" Target="PLEX_PASSWORD" Default="" Mode="" Description="Recommend using PLEX_TOKEN instead. Syntax: comma separated values for multiple servers" Type="Variable" Display="advanced" Required="false" Mask="false"/>
+  <Config Name="Plex: SSL_BYPASS" Target="SSL_BYPASS" Default="False" Mode="" Description="Skip hostname validation for ssl certificates. Set to True if running into ssl certificate errors. Currently only applies to Plex." Type="Variable" Display="advanced" Required="false" Mask="false"/>
+  <Config Name="JELLYFIN_BASEURL" Target="JELLYFIN_BASEURL" Default="http://localhost:8096" Mode="" Description="Jellyfin server URL, use hostname or IP address if the hostname is not resolving correctly. Syntax: comma separated values for multiple servers" Type="Variable" Display="always" Required="false" Mask="false"/>
+  <Config Name="JELLYFIN_TOKEN" Target="JELLYFIN_TOKEN" Default="" Mode="" Description="Jellyfin api token, created manually by logging in to the jellyfin server admin dashboard and creating an api key. Syntax: comma separated values for multiple servers" Type="Variable" Display="always" Required="false" Mask="true"/>
+  <Config Name="EMBY_BASEURL" Target="EMBY_BASEURL" Default="http://localhost:8097" Mode="" Description="Emby server URL, use hostname or IP address if the hostname is not resolving correctly. Syntax: comma separated values for multiple servers" Type="Variable" Display="always" Required="false" Mask="false"/>
+  <Config Name="EMBY_TOKEN" Target="EMBY_TOKEN" Default="" Mode="" Description="Emby api token, created manually by logging in to the Emby server admin dashboard and creating an api key. Syntax: comma separated values for multiple servers" Type="Variable" Display="always" Required="false" Mask="true"/>
 </Container>
